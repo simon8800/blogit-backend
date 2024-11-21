@@ -1,18 +1,19 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routers/usersRouter");
+const postsRouter = require("./routers/postsRouter");
 const logger = require("./customMiddleware/logger");
 const errorHandler = require("./customMiddleware/errorHandler");
 
 app.use(logger);
 app.use(express.json());
-// User router
-// WIP
+
+// Routers
 app.use("/users", userRouter);
+app.use("/posts", postsRouter);
 
 /*
 TBD
-Blog router
 User auth
 */
 

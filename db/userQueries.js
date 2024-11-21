@@ -8,7 +8,7 @@ const findById = async (id) => {
   return user;
 };
 
-const create = async ({ email, name = "" }) => {
+const create = async ({ email, name }) => {
   const createdUser = await prisma.user.create({
     data: {
       email,
