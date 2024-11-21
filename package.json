@@ -1,0 +1,21 @@
+{
+  "name": "blogit-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "express": "^4.21.1",
+    "express-async-handler": "^1.2.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}
