@@ -35,6 +35,7 @@ model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String?
+  hash    String   @db.VarChar(255)
   posts   Post[]
   profile Profile?
 }

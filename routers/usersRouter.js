@@ -3,7 +3,6 @@ const userRouter = Router();
 
 const {
   getUser,
-  createUser,
   updateUser,
   deleteUser,
 } = require("../controllers/usersController");
@@ -13,7 +12,6 @@ userRouter.get("/", (req, res) => {
 });
 
 userRouter.get("/:id", getUser);
-userRouter.post("/", createUser);
 userRouter.put("/:id", updateUser);
 userRouter.delete("/:id", deleteUser);
 

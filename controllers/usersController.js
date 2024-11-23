@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const UserQueries = require("../db/userQueries");
+const userQueries = require("../db/userQueries");
 
 /*
 GET /users/:id
@@ -8,7 +8,7 @@ Supply ID
 const getUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const processedId = parseInt(id);
-  const user = await UserQueries.findById(processedId);
+  const user = await userQueries.findById(processedId);
 
   if (!user) {
     res.status(404).json({ message: "User not found" });
@@ -16,19 +16,6 @@ const getUser = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json(user);
-});
-
-/*
-POST /users/
-*/
-const createUser = asyncHandler(async (req, res) => {
-  try {
-    const { email, name } = req.body;
-    const createdUser = await UserQueries.create({ email, name });
-    res.status(200).json(createdUser);
-  } catch (error) {
-    res.status(404).json({ error: error.mestr567sage });
-  }
 });
 
 /*
@@ -40,7 +27,7 @@ const updateUser = asyncHandler(async (req, res) => {
   const { name } = req.body;
   const processedId = parseInt(id);
   try {
-    const updatedUser = await UserQueries.update(processedId, name);
+    const updatedUser = await userQueries.update(processedId, name);
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -55,7 +42,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const processedId = parseInt(id);
   try {
-    await UserQueries.deleteById(processedId);
+    await userQueries.deleteById(processedId);
     res.status(200).json({ message: "User successfully deleted" });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -64,7 +51,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 module.exports = {
   getUser,
-  createUser,
   updateUser,
   deleteUser,
 };
