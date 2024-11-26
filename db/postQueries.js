@@ -4,6 +4,10 @@ const prisma = new PrismaClient();
 const findById = async (id) => {
   const post = await prisma.post.findUnique({
     where: { id: id },
+    select: {
+      id: true,
+      authorId: true,
+    },
   });
   return post;
 };

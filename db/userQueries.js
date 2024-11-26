@@ -8,12 +8,34 @@ const findById = async (id) => {
   return user;
 };
 
+const findByEmail = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+  return user;
+};
+
+const findByEmailBasicInfo = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+    select: {
+      email: true,
+      id: true,
+    },
+  });
+  return user;
+};
+
 const create = async ({ email, name, hash }) => {
   const createdUser = await prisma.user.create({
     data: {
       email,
       name,
       hash,
+    },
+    select: {
+      email: true,
+      name: true,
     },
   });
   return createdUser;
@@ -36,4 +58,11 @@ const deleteById = async (id) => {
   return deletedUser;
 };
 
-module.exports = { findById, create, update, deleteById };
+module.exports = {
+  findById,
+  findByEmail,
+  findByEmailBasicInfo,
+  create,
+  update,
+  deleteById,
+};
