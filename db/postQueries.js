@@ -6,6 +6,8 @@ const findById = async (id) => {
     where: { id: id },
     select: {
       id: true,
+      title: true,
+      content: true,
       authorId: true,
     },
   });

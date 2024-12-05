@@ -7,6 +7,9 @@ require("dotenv").config();
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await userQueries.findByEmail(email);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
   if (await passwordUtils.isValidPassword(password, user.hash)) {
     const opts = {};
     opts.expiresIn = "14 days"; // expires in 14 days

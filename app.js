@@ -15,12 +15,14 @@ const { login, logout, signup } = require("./controllers/authController");
 // Middleware imports
 const logger = require("./customMiddleware/logger");
 const errorHandler = require("./customMiddleware/errorHandler");
+const cors = require("cors");
 
 /*
  * ------> MIDDLEWARES <------
  */
 app.use(logger); // logs request method and request route
 app.use(express.json()); // enables parsing json in req.body
+app.use(cors());
 
 /*
  * ------> PassportJS SETUP <------
