@@ -1,18 +1,34 @@
 const { Router } = require("express");
-const userRouter = Router();
-
+const usersRouter = Router();
+const passport = require("passport");
 const {
   getUser,
   updateUser,
   deleteUser,
+  getCurrentUser,
+  getCurrentUserPosts,
 } = require("../controllers/usersController");
 
-userRouter.get("/", (req, res) => {
+// Get current user's information
+usersRouter.get(
+  "/me",
+  passport.authenticate("jwt", { session: false }),
+  getCurrentUser
+);
+
+// Get current user's posts
+usersRouter.get(
+  "/me/posts",
+  passport.authenticate("jwt", { session: false }),
+  getCurrentUserPosts
+);
+
+usersRouter.get("/", (req, res) => {
   res.send("Hello from user router!");
 });
 
-userRouter.get("/:id", getUser);
-userRouter.put("/:id", updateUser);
-userRouter.delete("/:id", deleteUser);
+usersRouter.get("/:id", getUser);
+usersRouter.put("/:id", updateUser);
+usersRouter.delete("/:id", deleteUser);
 
-module.exports = userRouter;
+module.exports = usersRouter;

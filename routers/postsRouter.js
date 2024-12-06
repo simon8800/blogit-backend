@@ -1,29 +1,44 @@
 const { Router } = require("express");
 const postsRouter = Router();
 const passport = require("passport");
-const verify = require("../customMiddleware/verify");
 const {
   getPost,
+  getLatestPosts,
   createPost,
   updatePost,
   deletePost,
+  publishPost,
 } = require("../controllers/postsController");
 
-postsRouter.get("/:id", getPost);
-postsRouter.post("/", createPost);
+postsRouter.get("/latest", getLatestPosts);
+
+postsRouter.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  getPost
+);
+
+postsRouter.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  createPost
+);
+
 postsRouter.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  verify.postOwner,
   updatePost
 );
-postsRouter.put("/:id/publish", (req, res) => {
-  res.send("WIP publish post");
-});
+
+postsRouter.put(
+  "/:id/publish",
+  passport.authenticate("jwt", { session: false }),
+  publishPost
+);
+
 postsRouter.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  verify.postOwner,
   deletePost
 );
 

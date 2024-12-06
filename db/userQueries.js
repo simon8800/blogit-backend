@@ -1,10 +1,24 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const getHandleFromEmail = (email) => email.split('@')[0];
+
 const findById = async (id) => {
   const user = await prisma.user.findUnique({
-    where: { id: id },
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true
+    }
   });
+
+  if (user) {
+    return {
+      ...user,
+      handle: getHandleFromEmail(user.email)
+    };
+  }
   return user;
 };
 
